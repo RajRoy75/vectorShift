@@ -1,47 +1,38 @@
-// outputNode.js
+// outputNode.js (Updated)
 
-import { useState } from 'react';
-import { Handle, Position } from 'reactflow';
+import { Position } from 'reactflow';
+import { BaseNode } from './baseNode';
 
 export const OutputNode = ({ id, data }) => {
-  const [currName, setCurrName] = useState(data?.outputName || id.replace('customOutput-', 'output_'));
-  const [outputType, setOutputType] = useState(data.outputType || 'Text');
+  const receivedValue = data.value;
 
-  const handleNameChange = (e) => {
-    setCurrName(e.target.value);
-  };
+  let displayValue = '...';
+  if (receivedValue !== undefined) {
+    if (typeof receivedValue === 'object' && receivedValue !== null) {
+      displayValue = JSON.stringify(receivedValue, null, 2);
+    } else {
+      displayValue = String(receivedValue);
+    }
+  }
 
-  const handleTypeChange = (e) => {
-    setOutputType(e.target.value);
-  };
+  const handles = [
+    { id: 'value', type: 'target', position: Position.Left },
+  ];
 
-  return (
-    <div style={{width: 200, height: 80, border: '1px solid black'}}>
-      <Handle
-        type="target"
-        position={Position.Left}
-        id={`${id}-value`}
-      />
-      <div>
-        <span>Output</span>
-      </div>
-      <div>
-        <label>
-          Name:
-          <input 
-            type="text" 
-            value={currName} 
-            onChange={handleNameChange} 
-          />
-        </label>
-        <label>
-          Type:
-          <select value={outputType} onChange={handleTypeChange}>
-            <option value="Text">Text</option>
-            <option value="File">Image</option>
-          </select>
-        </label>
-      </div>
+  const body = (
+    <div className="nodrag nowheel w-full bg-purple-950/50 rounded-md p-2 text-gray-200">
+      <pre className="text-xs whitespace-pre-wrap break-all">
+        {displayValue}
+      </pre>
     </div>
   );
-}
+
+  return (
+    <BaseNode
+      id={id}
+      title="Output"
+      handles={handles}
+      body={body}
+    />
+  );
+};

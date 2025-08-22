@@ -12,6 +12,11 @@ import { OutputNode } from './nodes/outputNode';
 import { TextNode } from './nodes/textNode';
 
 import 'reactflow/dist/style.css';
+import { MathNode } from './nodes/mathNode';
+import { ConditionNode } from './nodes/conditionNode';
+import { StringUtilsNode } from './nodes/stringUtilsNode';
+import { DelayNode } from './nodes/delayNode';
+import { DataSwitchNode } from './nodes/dataSwitchNode';
 
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
@@ -20,6 +25,11 @@ const nodeTypes = {
   llm: LLMNode,
   customOutput: OutputNode,
   text: TextNode,
+  math: MathNode,
+  condition: ConditionNode,
+  stringUtils: StringUtilsNode,
+  delay: DelayNode,
+  dataSwitch: DataSwitchNode,
 };
 
 const selector = (state) => ({
@@ -30,6 +40,7 @@ const selector = (state) => ({
   onNodesChange: state.onNodesChange,
   onEdgesChange: state.onEdgesChange,
   onConnect: state.onConnect,
+  updateNodeData: state.updateNodeData,
 });
 
 export const PipelineUI = () => {
@@ -42,7 +53,8 @@ export const PipelineUI = () => {
     addNode,
     onNodesChange,
     onEdgesChange,
-    onConnect
+    onConnect,
+    updateNodeData
   } = useStore(selector, shallow);
 
   const getInitNodeData = (nodeID, type) => {
@@ -59,7 +71,6 @@ export const PipelineUI = () => {
         const appData = JSON.parse(event.dataTransfer.getData('application/reactflow'));
         const type = appData?.nodeType;
 
-        // check if the dropped element is valid
         if (typeof type === 'undefined' || !type) {
           return;
         }
@@ -88,11 +99,24 @@ export const PipelineUI = () => {
     event.dataTransfer.dropEffect = 'move';
   }, []);
 
+  const nodesWithDataHandlers = nodes.map((node) => {
+    if (node.type === 'customInput' || node.type === 'math' || node.type === 'condition' || node.type === 'stringUtils' || node.type === 'delay' || node.type === 'dataSwitch') {
+      return {
+        ...node,
+        data: {
+          ...node.data,
+          onChange: updateNodeData, // Pass the store action as the onChange handler
+        },
+      };
+    }
+    return node;
+  });
+
   return (
     <>
       <div ref={reactFlowWrapper} style={{ width: '100wv', height: '70vh' }}>
         <ReactFlow
-          nodes={nodes}
+          nodes={nodesWithDataHandlers}
           edges={edges}
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
