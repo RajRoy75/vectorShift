@@ -1,9 +1,9 @@
 // baseNode.js
 import { Handle } from 'reactflow';
 
-export const BaseNode = ({ id, title, fields = [], handles = [], body }) => {
+export const BaseNode = ({ id: nodeId, title, fields = [], handles = [], body }) => {
   return (
-    <div className="w-56 min-h-24 rounded-2xl bg-gradient-to-r from-purple-800 to-purple-900 text-white shadow-lg p-3">
+    <div className="min-w-[14rem] max-w-xs min-h-24 rounded-2xl bg-gradient-to-r from-purple-800 to-purple-900 text-white shadow-lg p-3">
       {/* Title */}
       <div className="text-base font-semibold mb-3 border-b border-purple-600 pb-1">
         {title}
@@ -49,9 +49,9 @@ export const BaseNode = ({ id, title, fields = [], handles = [], body }) => {
       </div>
 
       {/* Render handles dynamically */}
-      {handles.map((h) => (
+      {handles.map((h, index) => (
         <Handle
-          key={h.id}
+          key={`${nodeId}-${h.id}-${index}`}
           type={h.type}
           position={h.position}
           id={h.id}

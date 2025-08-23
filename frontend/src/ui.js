@@ -100,7 +100,7 @@ export const PipelineUI = () => {
   }, []);
 
   const nodesWithDataHandlers = nodes.map((node) => {
-    if (node.type === 'customInput' || node.type === 'math' || node.type === 'condition' || node.type === 'stringUtils' || node.type === 'delay' || node.type === 'dataSwitch') {
+    if (node.type === 'customInput' || node.type === 'math' || node.type === 'condition' || node.type === 'stringUtils' || node.type === 'delay' || node.type === 'dataSwitch' || node.type === 'text') {
       return {
         ...node,
         data: {
