@@ -31,14 +31,14 @@ export const DataSwitchNode = ({ id, data }) => {
 
   const body = (
     <div className="p-2 space-y-1 text-xs">
-      <div className="text-gray-300">
-        Selecting input: <span className="font-mono text-white">{currentSelector}</span>
+      <div className="text-black">
+        Selecting input: <span className="font-mono text-green-700">{currentSelector}</span>
       </div>
       <div className="border-t border-purple-600 my-1"></div>
       {INPUT_OPTIONS.map((key, index) => (
         <div
           key={key}
-          className={`flex justify-between items-center ${Number(currentSelector) === index ? 'text-green-300 font-bold' : 'text-gray-400'}`}
+          className={`flex justify-between items-center ${Number(currentSelector) === index ? 'text-green-700 font-bold' : 'text-gray-400'}`}
         >
           <span>Input {index}</span>
           <span>&rarr;</span>

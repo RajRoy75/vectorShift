@@ -56,7 +56,7 @@ export const StringUtilsNode = ({ id, data }) => {
   ];
 
   const body = (
-    <div className="bg-purple-950/50 rounded-md p-2 text-green-300 text-center">
+    <div className="rounded-md p-2 text-green-700 text-center">
       <span className="font-mono text-xl">{String(result)}</span>
     </div>
   );

@@ -1,4 +1,3 @@
-// outputNode.js (Updated)
 
 import { Position } from 'reactflow';
 import { BaseNode } from './baseNode';
@@ -20,8 +19,8 @@ export const OutputNode = ({ id, data }) => {
   ];
 
   const body = (
-    <div className="nodrag nowheel w-full bg-purple-950/50 rounded-md p-2 text-gray-200">
-      <pre className="text-xs whitespace-pre-wrap break-all">
+    <div className="nodrag nowheel w-full rounded-md p-2 text-black">
+      <pre className="text-lg whitespace-pre-wrap break-all">
         {displayValue}
       </pre>
     </div>

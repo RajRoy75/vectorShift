@@ -49,8 +49,8 @@ export const DelayNode = ({ id, data }) => {
   const body = (
     <div className="text-center p-2">
       {countdown > 0
-        ? <span className="text-yellow-400 font-mono">Waiting ({countdown.toFixed(1)}s)...</span>
-        : <span className="text-gray-400">Ready</span>
+        ? <span className="text-green-700 font-mono">Waiting ({countdown.toFixed(1)}s)...</span>
+        : <span className="text-black">Ready</span>
       }
     </div>
   );

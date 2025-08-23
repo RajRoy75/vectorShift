@@ -15,3 +15,39 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.comic-flow-canvas {
+  background-color: #f2e8c9;
+  background-image: radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.25) 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+.comic-controls .react-flow__controls-button {
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 0;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.75);
+  transition: all 0.1s ease;
+}
+
+.comic-controls .react-flow__controls-button:hover {
+  background-color: #ffef00;
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.75);
+}
+
+.comic-controls .react-flow__controls-button:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.comic-minimap {
+  background-color: #f2e8c9 !important;
+  border: 2px solid #000000;
+  border-radius: 0;
+}
+
+.comic-minimap .react-flow__minimap-mask {
+  fill: rgba(61, 61, 255, 0.4) !important;
+}

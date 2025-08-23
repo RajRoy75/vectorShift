@@ -1,4 +1,3 @@
-// ConditionNode.js (Corrected and Final)
 
 import { useEffect } from 'react';
 import { Position } from 'reactflow';
@@ -60,7 +59,7 @@ export const ConditionNode = ({ id, data }) => {
   ];
 
   const body = (
-    <div className="text-center text-xs text-gray-400 p-1">
+    <div className="text-center text-sm text-black p-1">
       <span>If Input {operator} {comparisonValue}</span>
     </div>
   );

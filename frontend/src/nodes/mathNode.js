@@ -4,7 +4,6 @@ import { Position } from 'reactflow';
 import { BaseNode } from './baseNode';
 
 export const MathNode = ({ id, data }) => {
-  // State for the two numbers and their sum
   const num1 = data.num1 || 0;
   const num2 = data.num2 || 0;
   const [sum, setSum] = useState(0);
@@ -25,9 +24,9 @@ export const MathNode = ({ id, data }) => {
 
   const body = (
     <div className="text-right font-mono text-lg pr-2 space-y-2">
-      <div className="text-gray-300 text-sm">Input A: {num1}</div>
-      <div className="text-gray-300 text-sm">Input B: {num2}</div>
-      <div className="text-green-400 font-bold border-t border-purple-600 pt-1">
+      <div className="text-black text-sm">Input A: {num1}</div>
+      <div className="text-black text-sm">Input B: {num2}</div>
+      <div className="text-green-700 font-bold border-t border-purple-600 pt-1">
         Sum: {sum}
       </div>
     </div>

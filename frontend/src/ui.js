@@ -3,22 +3,22 @@
 // --------------------------------------------------
 
 import { useState, useRef, useCallback } from 'react';
-import ReactFlow, { Controls, Background, MiniMap } from 'reactflow';
+import ReactFlow, { Controls, Background, MiniMap, BackgroundVariant } from 'reactflow';
 import { useStore } from './store';
 import { shallow } from 'zustand/shallow';
 import { InputNode } from './nodes/inputNode';
 import { LLMNode } from './nodes/llmNode';
 import { OutputNode } from './nodes/outputNode';
 import { TextNode } from './nodes/textNode';
-
-import 'reactflow/dist/style.css';
 import { MathNode } from './nodes/mathNode';
 import { ConditionNode } from './nodes/conditionNode';
 import { StringUtilsNode } from './nodes/stringUtilsNode';
 import { DelayNode } from './nodes/delayNode';
 import { DataSwitchNode } from './nodes/dataSwitchNode';
 
-const gridSize = 20;
+import 'reactflow/dist/style.css';
+import './index.css';
+
 const proOptions = { hideAttribution: true };
 const nodeTypes = {
   customInput: InputNode,
@@ -30,6 +30,11 @@ const nodeTypes = {
   stringUtils: StringUtilsNode,
   delay: DelayNode,
   dataSwitch: DataSwitchNode,
+};
+
+const defaultEdgeOptions = {
+  style: { strokeWidth: 3, stroke: '#000000' },
+  type: 'smoothstep',
 };
 
 const selector = (state) => ({
@@ -91,7 +96,7 @@ export const PipelineUI = () => {
         addNode(newNode);
       }
     },
-    [reactFlowInstance]
+    [reactFlowInstance, getNodeID, addNode]
   );
 
   const onDragOver = useCallback((event) => {
@@ -105,7 +110,7 @@ export const PipelineUI = () => {
         ...node,
         data: {
           ...node.data,
-          onChange: updateNodeData, // Pass the store action as the onChange handler
+          onChange: updateNodeData,
         },
       };
     }
@@ -113,27 +118,33 @@ export const PipelineUI = () => {
   });
 
   return (
-    <>
-      <div ref={reactFlowWrapper} style={{ width: '100wv', height: '70vh' }}>
-        <ReactFlow
-          nodes={nodesWithDataHandlers}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          onDrop={onDrop}
-          onDragOver={onDragOver}
-          onInit={setReactFlowInstance}
-          nodeTypes={nodeTypes}
-          proOptions={proOptions}
-          snapGrid={[gridSize, gridSize]}
-          connectionLineType='smoothstep'
-        >
-          <Background color="red" gap={gridSize} />
-          <Controls />
-          <MiniMap pannable zoomable />
-        </ReactFlow>
+    <div className="p-4 bg-comic-primary">
+      <div className="relative border-2 border-comic-text shadow-[4px_4px_0px_rgba(0,0,0,0.75)]">
+        <div ref={reactFlowWrapper} style={{ height: '75vh' }}>
+          <ReactFlow
+            nodes={nodesWithDataHandlers}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            onDrop={onDrop}
+            onDragOver={onDragOver}
+            onInit={setReactFlowInstance}
+            nodeTypes={nodeTypes}
+            proOptions={proOptions}
+            defaultEdgeOptions={defaultEdgeOptions}
+            className="comic-flow-canvas"
+          >
+            <Controls className="comic-controls" />
+            <MiniMap
+              className="comic-minimap"
+              nodeColor="#ff3d3d"
+              pannable
+              zoomable
+            />
+          </ReactFlow>
+        </div>
       </div>
-    </>
+    </div>
   )
 }
