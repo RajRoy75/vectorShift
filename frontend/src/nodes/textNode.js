@@ -36,14 +36,13 @@ export const TextNode = ({ id, data }) => {
     let newResult = text;
 
     dynamicHandles.forEach(handle => {
-      const variableName = handle.variableName;
+      const variableName = handle.id;
       const value = restOfData[variableName];
       if (value !== undefined) {
         const regex = new RegExp(`{{${variableName}}}`, 'g');
         newResult = newResult.replace(regex, String(value));
-      }
+      };
     });
-
     if (onChange) {
       if (restOfData.output !== newResult) {
         onChange(id, { ...restOfData, output: newResult });
